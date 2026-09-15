@@ -1,5 +1,5 @@
 export type Screen =
-  | "TITLE"
+  | "BOOT"
   | "INTRO"
   | "MAIN_MENU"
   | "PROJECTS"
@@ -31,13 +31,12 @@ export type Action =
   | { type: "OPEN"; menu: SubMenu }
   | { type: "BACK" }
   | { type: "CONTACT" }
-  | { type: "CONTACT_COMPLETE" }
   | { type: "OPEN_MODAL"; modal: ModalState }
   | { type: "CLOSE_MODAL" }
   | { type: "DAMAGE_FOE"; amount: number };
 
 export const initialState: BattleState = {
-  screen: "TITLE",
+  screen: "BOOT",
   modal: null,
   foeHp: 100,
   playerHp: 100,

@@ -15,36 +15,43 @@ export function BattleField({ foeHp, playerHp }: BattleFieldProps) {
     <>
       <div
         data-intro="foe-platform"
-        className="platform absolute right-[4%] top-[26%] h-[12%] w-[34%] @max-lg:right-[2%] @max-lg:top-[27%] @max-lg:h-[6%] @max-lg:w-[44%]"
+        className="platform absolute right-[calc(10%-15cqh)] top-[30%] h-[20cqh] w-[74cqh] @max-lg:right-[calc(4%-10cqw)] @max-lg:top-[38cqw] @max-lg:h-[16cqw] @max-lg:w-[60cqw]"
       />
       <div
         data-intro="foe"
-        className="absolute right-[12%] top-[3%] w-[18%] @max-lg:right-[6%] @max-lg:top-[5%] @max-lg:w-[36%]"
+        className="absolute right-[10%] top-[2%] w-[44cqh] @max-lg:right-[4%] @max-lg:top-[12cqw] @max-lg:w-[40cqw]"
       >
         <Sprite entry={sprites.foe} label={profile.foeName} />
       </div>
       <div
         data-intro="foe-hud"
-        className="absolute left-[4%] top-[6%] w-[38%] @max-lg:top-[3%] @max-lg:w-[56%]"
+        className="absolute left-[4%] top-[6%] w-[min(36%,60cqh)] @max-lg:left-[3%] @max-lg:top-[14cqw] @max-lg:w-[50cqw]"
       >
-        <HPBar name={profile.foeName} level={profile.foeLevel} hp={foeHp} />
+        <HPBar name={profile.foeName} level={profile.foeLevel} hp={foeHp} side="foe" />
       </div>
 
       <div
         data-intro="player-platform"
-        className="platform absolute bottom-[27%] left-[2%] h-[12%] w-[46%] @max-lg:bottom-auto @max-lg:left-0 @max-lg:top-[48%] @max-lg:h-[6%] @max-lg:w-[52%]"
+        className="platform absolute bottom-[12%] left-[calc(8%-25cqh)] h-[28cqh] w-[110cqh] @max-lg:bottom-auto @max-lg:left-[calc(2%-14cqw)] @max-lg:top-[90cqw] @max-lg:h-[20cqw] @max-lg:w-[80cqw]"
       />
       <div
         data-intro="player"
-        className="absolute bottom-[30%] left-[13%] w-[24%] @max-lg:bottom-auto @max-lg:left-[6%] @max-lg:top-[24%] @max-lg:w-[40%]"
+        className="absolute bottom-[22%] left-[8%] w-[60cqh] @max-lg:bottom-auto @max-lg:left-[2%] @max-lg:top-[50cqw] @max-lg:w-[52cqw]"
       >
         <Sprite entry={sprites.player} label={profile.playerName} />
       </div>
       <div
         data-intro="player-hud"
-        className="absolute bottom-[33%] right-[4%] w-[40%] @max-lg:bottom-auto @max-lg:top-[40%] @max-lg:w-[50%]"
+        className="absolute bottom-[30%] right-[4%] w-[min(38%,66cqh)] @max-lg:bottom-auto @max-lg:right-[3%] @max-lg:top-[78cqw] @max-lg:w-[50cqw]"
       >
-        <HPBar name={profile.playerName} level={profile.playerLevel} hp={playerHp} showNumbers />
+        <HPBar
+          name={profile.playerName}
+          level={profile.playerLevel}
+          hp={playerHp}
+          maxHp={profile.playerMaxHp}
+          side="player"
+          showNumbers
+        />
       </div>
     </>
   );

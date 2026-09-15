@@ -1,6 +1,5 @@
 // PLACEHOLDER CONTENT — replace before launch
 export const strings = {
-  pressStart: "PRESS START",
   skipIntro: "SKIP",
   skipToSite: "Skip to traditional site",
   wildAppeared: "A wild {foe} appeared!",

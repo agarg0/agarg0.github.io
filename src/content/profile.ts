@@ -7,8 +7,9 @@ export const profile: Profile = {
   bio: `I'm a software engineer who likes systems that are simple on the outside and rigorous on the inside.
 
 This bio is placeholder copy. Replace it with two or three short paragraphs: what you work on, what you care about in engineering, and what you're looking for next.`,
-  foeName: "WYRM",
-  playerName: "SHADE",
+  foeName: "RAYQUAZA",
+  playerName: "GRENINJA",
   foeLevel: 100,
   playerLevel: 99,
+  playerMaxHp: 344,
 };

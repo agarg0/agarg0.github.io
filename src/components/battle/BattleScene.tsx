@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useAnimate, useReducedMotion } from "motion/react";
 import { profile } from "@/content/profile";
 import { fill, strings } from "@/content/strings";
@@ -9,17 +9,16 @@ import type { Command, ModalState } from "@/lib/battle-machine/types";
 import { useBattleTransition } from "@/lib/useBattleTransition";
 import { BattleField } from "./BattleField";
 import { BottomPanel } from "./BottomPanel";
+import { Backdrop } from "./Backdrop";
 import { CommandGrid } from "./CommandGrid";
 import { TextBox } from "./TextBox";
-import { TitleCard } from "./TitleCard";
 import { IntroSequence } from "./intro/IntroSequence";
 import { AboutMenu } from "./menus/AboutMenu";
-import { ContactExit } from "./menus/ContactExit";
+import { ContactReveal } from "./menus/ContactReveal";
 import { ProjectsMenu } from "./menus/ProjectsMenu";
 import { ResumeMenu } from "./menus/ResumeMenu";
 import { ModalHost } from "./modals/ModalHost";
 
-const INTRO_SEEN_KEY = "introSeen";
 const LUNGE_MS = 260;
 const HP_TWEEN_MS = 420;
 const DAMAGE_PER_PROJECT = 15;
@@ -39,21 +38,14 @@ function Scene() {
   const { variants, transition } = useBattleTransition();
   const attackTimers = useRef<number[]>([]);
 
-  const onStart = useCallback(() => {
-    let seen = false;
-    try {
-      seen = window.sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
-      window.sessionStorage.setItem(INTRO_SEEN_KEY, "1");
-    } catch {
-      seen = false;
-    }
-    dispatch({ type: "START", skipIntro: Boolean(reduced) || seen });
-  }, [dispatch, reduced]);
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    dispatch({ type: "START", skipIntro: prefersReduced });
+  }, [dispatch]);
 
   const onIntroComplete = useCallback(() => dispatch({ type: "INTRO_COMPLETE" }), [dispatch]);
   const onBack = useCallback(() => dispatch({ type: "BACK" }), [dispatch]);
   const onCloseModal = useCallback(() => dispatch({ type: "CLOSE_MODAL" }), [dispatch]);
-  const onContactComplete = useCallback(() => dispatch({ type: "CONTACT_COMPLETE" }), [dispatch]);
   const onOpenModal = useCallback((modal: ModalState) => dispatch({ type: "OPEN_MODAL", modal }), [dispatch]);
 
   const onCommand = useCallback(
@@ -86,12 +78,12 @@ function Scene() {
   );
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    if (e.key === "Escape" && (state.screen === "PROJECTS" || state.screen === "RESUME" || state.screen === "ABOUT")) {
+    if (e.key === "Escape" && state.screen !== "MAIN_MENU" && state.screen !== "INTRO" && state.screen !== "BOOT") {
       dispatch({ type: "BACK" });
     }
   }
 
-  const showField = state.screen !== "TITLE";
+  const showField = state.screen !== "BOOT";
 
   return (
     <>
@@ -99,10 +91,9 @@ function Scene() {
         ref={scope}
         onKeyDown={onKeyDown}
         inert={state.modal !== null}
-        className="battle-scene border border-border bg-[radial-gradient(ellipse_at_50%_35%,#1a1a1f_0%,#111113_70%)]"
+        className="battle-scene"
       >
-        {state.screen === "TITLE" && <TitleCard onStart={onStart} />}
-
+        <Backdrop />
         {showField && (
           <div className={state.screen === "INTRO" ? "contents intro-pending" : "contents"}>
             <BattleField foeHp={state.foeHp} playerHp={state.playerHp} />
@@ -129,18 +120,14 @@ function Scene() {
                       <TextBox text={fill(strings.prompt, { name: profile.name })} typing={false} />
                     </div>
                     <div className="flex-1 border-l-2 border-border pl-[1cqw] @max-lg:border-l-0 @max-lg:border-t-2 @max-lg:pl-0 @max-lg:pt-[1cqw]">
-                      <CommandGrid
-                        onSelect={onCommand}
-                        initialFocus={state.lastCommand}
-                        autoFocus={state.lastCommand !== "CONTACT"}
-                      />
+                      <CommandGrid onSelect={onCommand} initialFocus={state.lastCommand} />
                     </div>
                   </div>
                 )}
                 {state.screen === "PROJECTS" && <ProjectsMenu onSelect={onSelectProject} onBack={onBack} />}
                 {state.screen === "RESUME" && <ResumeMenu onOpen={onOpenModal} onBack={onBack} />}
                 {state.screen === "ABOUT" && <AboutMenu onOpen={onOpenModal} onBack={onBack} />}
-                {state.screen === "CONTACT_EXIT" && <ContactExit onComplete={onContactComplete} />}
+                {state.screen === "CONTACT_EXIT" && <ContactReveal onBack={onBack} />}
               </motion.div>
             </AnimatePresence>
           </BottomPanel>

@@ -6,6 +6,7 @@ export interface Profile {
   playerName: string;
   foeLevel: number;
   playerLevel: number;
+  playerMaxHp: number;
 }
 
 export interface Project {

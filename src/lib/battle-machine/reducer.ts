@@ -5,7 +5,7 @@ const FOE_HP_FLOOR = 20;
 export function reducer(state: BattleState, action: Action): BattleState {
   switch (action.type) {
     case "START":
-      if (state.screen !== "TITLE") return state;
+      if (state.screen !== "BOOT") return state;
       return { ...state, screen: action.skipIntro ? "MAIN_MENU" : "INTRO" };
 
     case "INTRO_COMPLETE":
@@ -17,7 +17,12 @@ export function reducer(state: BattleState, action: Action): BattleState {
       return { ...state, screen: action.menu, lastCommand: action.menu };
 
     case "BACK":
-      if (state.screen !== "PROJECTS" && state.screen !== "RESUME" && state.screen !== "ABOUT") {
+      if (
+        state.screen !== "PROJECTS" &&
+        state.screen !== "RESUME" &&
+        state.screen !== "ABOUT" &&
+        state.screen !== "CONTACT_EXIT"
+      ) {
         return state;
       }
       return { ...state, screen: "MAIN_MENU" };
@@ -25,10 +30,6 @@ export function reducer(state: BattleState, action: Action): BattleState {
     case "CONTACT":
       if (state.screen !== "MAIN_MENU") return state;
       return { ...state, screen: "CONTACT_EXIT", lastCommand: "CONTACT" };
-
-    case "CONTACT_COMPLETE":
-      if (state.screen !== "CONTACT_EXIT") return state;
-      return { ...state, screen: "MAIN_MENU" };
 
     case "OPEN_MODAL":
       return { ...state, modal: action.modal };

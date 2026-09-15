@@ -13,19 +13,17 @@ export function commandButtonId(command: Command) {
 interface CommandGridProps {
   onSelect: (command: Command) => void;
   initialFocus: Command | null;
-  autoFocus: boolean;
 }
 
-export function CommandGrid({ onSelect, initialFocus, autoFocus }: CommandGridProps) {
+export function CommandGrid({ onSelect, initialFocus }: CommandGridProps) {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!autoFocus) return;
     const target = initialFocus ?? COMMANDS[0];
     gridRef.current
       ?.querySelector<HTMLButtonElement>(`#${commandButtonId(target)}`)
       ?.focus({ preventScroll: true });
-  }, [initialFocus, autoFocus]);
+  }, [initialFocus]);
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     const buttons = Array.from(gridRef.current?.querySelectorAll<HTMLButtonElement>("button") ?? []);
