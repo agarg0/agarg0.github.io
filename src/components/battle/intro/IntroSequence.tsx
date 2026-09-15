@@ -56,7 +56,7 @@ export function IntroSequence({ animate, onComplete }: IntroSequenceProps) {
       [SWEEP, { x: ["-100%", "100%"] }, { duration: 0.6, ease: "easeInOut", at: 0 }],
       [FOE_PLATFORM, { opacity: [0, 1] }, { duration: 0.4, at: 0.5 }],
       [FOE, { x: ["200%", "0%"], opacity: [0, 1] }, { duration: 0.7, ease: "easeOut", at: 0.5 }],
-      [FOE_HUD, { x: ["-130%", "0%"], opacity: [0, 1] }, { duration: 0.45, ease: "easeOut", at: 0.9 }],
+      [FOE_HUD, { x: ["130%", "0%"], opacity: [0, 1] }, { duration: 0.45, ease: "easeOut", at: 0.9 }],
       [FOE, { y: [0, -8, 0, -5, 0] }, { duration: 0.55, ease: "easeInOut", at: 1.4 }],
       [PLAYER_PLATFORM, { opacity: [0, 1] }, { duration: 0.4, at: 2.6 }],
       [PLAYER, { x: "0%", opacity: [0, 1] }, { duration: 0.4, at: 2.6 }],
@@ -84,7 +84,7 @@ export function IntroSequence({ animate, onComplete }: IntroSequenceProps) {
         className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(90deg,transparent_0%,rgba(250,250,250,0.85)_50%,transparent_100%)]"
       />
       {sparkle && (
-        <ShinySparkle className="right-[10%] top-[2%] h-[39cqh] w-[44cqh] @max-lg:right-[4%] @max-lg:top-[12cqw] @max-lg:h-[36cqw] @max-lg:w-[40cqw]" />
+        <ShinySparkle className="right-[10%] top-[15%] h-[36cqh] w-[40cqh] @max-lg:right-[4%] @max-lg:top-[30cqw] @max-lg:h-[34cqw] @max-lg:w-[38cqw]" />
       )}
       <BottomPanel>
         <div className="flex h-full items-start justify-between gap-[2cqw] px-[1.5cqw] py-[1cqw]">

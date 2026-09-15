@@ -57,6 +57,13 @@ body {
     text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.85);
   }
 
+  .pixel-text-xs {
+    font-family: var(--font-pixel), monospace;
+    font-size: clamp(0.7rem, min(2.1cqw, 2.3cqh), 1.2rem);
+    line-height: 1.25;
+    text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.85);
+  }
+
   .pixel-box {
     background: var(--color-panel);
     border: 2px solid var(--color-border-strong);
