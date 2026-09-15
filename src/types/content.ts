@@ -59,6 +59,7 @@ export interface SpriteSheet {
 export interface SpriteEntry {
   static: string;
   idle?: SpriteSheet;
+  flip?: boolean;
 }
 
 export interface SpriteManifest {
