@@ -1,6 +1,6 @@
 # Sprite Asset Spec
 
-The battle scene ships with flat placeholder silhouettes (`public/sprites/placeholder/*.svg`). Real sprites replace them by dropping files at the paths below and editing `src/content/sprites.ts` — no component changes.
+Sprites live at the paths below and are declared in `src/content/sprites.ts` — swapping art means replacing files and editing that one manifest, no component changes.
 
 ## Format
 
