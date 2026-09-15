@@ -87,7 +87,7 @@ export function IntroSequence({ animate, onComplete }: IntroSequenceProps) {
         <ShinySparkle className="right-[10%] top-[15%] h-[36cqh] w-[40cqh] @max-lg:right-[4%] @max-lg:top-[30cqw] @max-lg:h-[34cqw] @max-lg:w-[38cqw]" />
       )}
       <BottomPanel>
-        <div className="flex h-full items-start justify-between gap-[2cqw] px-[1.5cqw] py-[1cqw]">
+        <div className="flex items-start justify-between gap-[2cqw] px-[1.5cqw] py-[1cqw]">
           {line ? <TextBox text={line} /> : <span />}
           <button
             type="button"

@@ -112,10 +112,9 @@ function Scene() {
                 animate="animate"
                 exit="exit"
                 transition={transition}
-                className="h-full"
               >
                 {state.screen === "MAIN_MENU" && (
-                  <div className="flex h-full gap-[1.5cqw] @max-lg:flex-col">
+                  <div className="flex gap-[1.5cqw] @max-lg:flex-col">
                     <div className="flex-[1.2] px-[1.5cqw] py-[1cqw] @max-lg:flex-none">
                       <TextBox text={fill(strings.prompt, { name: profile.name })} typing={false} />
                     </div>

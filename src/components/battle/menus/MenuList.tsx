@@ -12,8 +12,8 @@ interface MenuListProps {
 
 export function MenuList({ label, onBack, children, columns = 1 }: MenuListProps) {
   return (
-    <div role="group" aria-label={label} className="flex h-full flex-col">
-      <div className={`grid flex-1 content-start ${columns === 2 ? "grid-cols-2 gap-x-[1cqw]" : "grid-cols-1"}`}>
+    <div role="group" aria-label={label} className="flex flex-col">
+      <div className={`grid content-start ${columns === 2 ? "grid-cols-2 gap-x-[1cqw]" : "grid-cols-1"}`}>
         {children}
       </div>
       <button type="button" onClick={onBack} className="pixel-button pixel-text-sm text-muted">

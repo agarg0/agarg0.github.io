@@ -13,7 +13,7 @@ interface ResumeMenuProps {
 export function ResumeMenu({ onOpen, onBack }: ResumeMenuProps) {
   const firstRef = useFocusOnMount<HTMLAnchorElement>();
   return (
-    <MenuList label={strings.commands.RESUME} onBack={onBack}>
+    <MenuList label={strings.commands.RESUME} onBack={onBack} columns={2}>
       <a
         ref={firstRef}
         id="resume-pdf"

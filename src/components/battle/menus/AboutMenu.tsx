@@ -14,7 +14,7 @@ interface AboutMenuProps {
 export function AboutMenu({ onOpen, onBack }: AboutMenuProps) {
   const firstRef = useFocusOnMount<HTMLButtonElement>();
   return (
-    <MenuList label={strings.commands.ABOUT} onBack={onBack}>
+    <MenuList label={strings.commands.ABOUT} onBack={onBack} columns={2}>
       {about.map((panel, i) => {
         const id = `about-${panel.id}`;
         return (

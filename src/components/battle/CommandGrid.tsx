@@ -57,7 +57,7 @@ export function CommandGrid({ onSelect, initialFocus }: CommandGridProps) {
       role="group"
       aria-label="Navigation"
       onKeyDown={onKeyDown}
-      className="grid h-full grid-cols-2 grid-rows-2 gap-x-[1cqw]"
+      className="grid grid-cols-2 gap-x-[1cqw]"
     >
       {COMMANDS.map((command) => (
         <button

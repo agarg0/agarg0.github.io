@@ -27,14 +27,14 @@ export function ContactReveal({ onBack }: ContactRevealProps) {
   }, [typed]);
 
   return (
-    <div className="flex h-full gap-[1.5cqw] @max-lg:flex-col">
+    <div className="flex gap-[1.5cqw] @max-lg:flex-col">
       <div className="flex-[1.2] px-[1.5cqw] py-[1cqw] @max-lg:flex-none">
         <TextBox text={strings.contactLine} onDone={onDone} />
       </div>
       <div
         role="group"
         aria-label={strings.commands.CONTACT}
-        className="grid flex-1 grid-cols-2 grid-rows-2 gap-x-[1cqw] border-l-2 border-border pl-[1cqw] @max-lg:border-l-0 @max-lg:border-t-2 @max-lg:pl-0 @max-lg:pt-[1cqw]"
+        className="grid flex-1 grid-cols-2 gap-x-[1cqw] border-l-2 border-border pl-[1cqw] @max-lg:border-l-0 @max-lg:border-t-2 @max-lg:pl-0 @max-lg:pt-[1cqw]"
       >
         {typed &&
           ITEMS.map((item, i) => (
