@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Press_Start_2P } from "next/font/google";
+import { Inter, Pixelify_Sans } from "next/font/google";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -8,9 +8,8 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const pressStart = Press_Start_2P({
-  variable: "--font-press-start",
-  weight: "400",
+const pixelify = Pixelify_Sans({
+  variable: "--font-pixelify",
   subsets: ["latin"],
 });
 
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${pressStart.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${pixelify.variable} h-full`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
