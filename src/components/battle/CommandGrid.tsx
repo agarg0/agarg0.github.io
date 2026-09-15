@@ -29,7 +29,6 @@ export function CommandGrid({ onSelect, initialFocus }: CommandGridProps) {
     const buttons = Array.from(gridRef.current?.querySelectorAll<HTMLButtonElement>("button") ?? []);
     const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
     if (index === -1) return;
-    const cols = gridRef.current?.dataset.cols === "1" ? 1 : 2;
     let next = index;
     switch (e.key) {
       case "ArrowRight":
@@ -39,10 +38,10 @@ export function CommandGrid({ onSelect, initialFocus }: CommandGridProps) {
         next = Math.max(index - 1, 0);
         break;
       case "ArrowDown":
-        next = Math.min(index + cols, buttons.length - 1);
+        next = Math.min(index + 2, buttons.length - 1);
         break;
       case "ArrowUp":
-        next = Math.max(index - cols, 0);
+        next = Math.max(index - 2, 0);
         break;
       default:
         return;
@@ -57,15 +56,16 @@ export function CommandGrid({ onSelect, initialFocus }: CommandGridProps) {
       role="group"
       aria-label="Navigation"
       onKeyDown={onKeyDown}
-      className="grid grid-cols-2 gap-x-[1cqw]"
+      className="grid h-full grid-cols-2 grid-rows-2 gap-[0.8cqw] @max-lg:gap-[1.6cqw]"
     >
       {COMMANDS.map((command) => (
         <button
           key={command}
           id={commandButtonId(command)}
           type="button"
+          data-command={command}
           onClick={() => onSelect(command)}
-          className="pixel-button pixel-text"
+          className="cmd-btn pixel-text"
         >
           {strings.commands[command]}
         </button>

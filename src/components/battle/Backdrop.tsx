@@ -1,12 +1,5 @@
 const HORIZON = 500;
 
-const STARS = Array.from({ length: 56 }, (_, i) => ({
-  x: (i * 337.7) % 1600,
-  y: (i * 131.3) % 380,
-  r: 1 + (i % 3) * 0.7,
-  opacity: 0.25 + (i % 4) * 0.15,
-}));
-
 const CLOUDS = [
   { cx: 60, cy: 470, rx: 300, ry: 46 },
   { cx: 420, cy: 490, rx: 340, ry: 52 },
@@ -43,9 +36,6 @@ export function Backdrop() {
         </filter>
       </defs>
       <rect width="1600" height={HORIZON} fill="url(#sky)" />
-      {STARS.map((s, i) => (
-        <circle key={i} cx={s.x} cy={s.y} r={s.r} fill="#e6e8ff" opacity={s.opacity} />
-      ))}
       <rect y={HORIZON - 8} width="1600" height={900 - HORIZON + 8} fill="url(#ground)" />
       <g filter="url(#soft)" fill="#8d95cc" opacity="0.55">
         {CLOUDS.map((c, i) => (
