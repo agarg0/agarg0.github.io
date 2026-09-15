@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #111113;
+  --color-panel: #18181b;
+  --color-panel-raised: #1f1f23;
+  --color-border: #27272a;
+  --color-border-strong: #3f3f46;
+  --color-fg: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-hp-high: #4ade80;
+  --color-hp-mid: #facc15;
+  --color-hp-low: #f87171;
+  --color-accent: #e11d48;
+}
+
+@theme inline {
+  --font-body: var(--font-inter);
+  --font-pixel: var(--font-press-start);
+}
+
+html {
+  color-scheme: dark;
+  background: var(--color-canvas);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-fg);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .battle-scene {
+    aspect-ratio: 16 / 9;
+    width: clamp(320px, min(100%, calc((100dvh - 5rem) * 16 / 9)), 1280px);
+    margin-inline: auto;
+    container-type: inline-size;
+    container-name: battle;
+    font-family: var(--font-pixel), monospace;
+    image-rendering: pixelated;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pixel-text {
+    font-family: var(--font-pixel), monospace;
+    font-size: clamp(0.55rem, 2.2cqw, 0.95rem);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  .pixel-text-sm {
+    font-family: var(--font-pixel), monospace;
+    font-size: clamp(0.45rem, 1.6cqw, 0.7rem);
+    line-height: 1.6;
+  }
+
+  .pixel-box {
+    background: var(--color-panel);
+    border: 2px solid var(--color-border-strong);
+    box-shadow:
+      inset 0 0 0 2px var(--color-canvas),
+      inset 0 0 0 4px var(--color-border);
+  }
+
+  .pixel-button {
+    font-family: var(--font-pixel), monospace;
+    text-align: left;
+    padding: 0.6em 0.9em 0.6em 1.8em;
+    position: relative;
+    color: var(--color-fg);
+    transition: background-color 120ms ease;
+    outline: none;
+  }
+  .pixel-button::before {
+    content: "▶";
+    position: absolute;
+    left: 0.6em;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-accent);
+    opacity: 0;
+    transition: opacity 80ms ease;
+  }
+  .pixel-button:hover,
+  .pixel-button:focus-visible {
+    background: var(--color-panel-raised);
+  }
+  .pixel-button:hover::before,
+  .pixel-button:focus-visible::before,
+  .pixel-button[aria-current="true"]::before {
+    opacity: 1;
+  }
+
+  /* Hides field elements for the first frame of the intro, before the timeline writes inline styles. */
+  .intro-pending [data-intro] {
+    opacity: 0;
+  }
+
+  .platform {
+    background: radial-gradient(ellipse at center, #26262b 0%, #1c1c20 55%, transparent 72%);
+  }
+
+  .sprite-sheet {
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    animation: sprite-cycle var(--sprite-duration, 1s) steps(var(--sprite-frames, 1)) infinite;
+  }
+
+  @keyframes sprite-cycle {
+    to {
+      background-position-x: var(--sprite-shift, 0%);
+    }
+  }
+
+  .prose-dark {
+    color: var(--color-fg);
+    line-height: 1.65;
+  }
+  .prose-dark h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.4em 0 0.5em;
+  }
+  .prose-dark h2:first-child {
+    margin-top: 0;
+  }
+  .prose-dark p,
+  .prose-dark ul,
+  .prose-dark ol {
+    margin: 0 0 0.9em;
+  }
+  .prose-dark ul {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
+  .prose-dark li {
+    margin: 0.25em 0;
+  }
+  .prose-dark a {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-dark code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875em;
+    background: var(--color-panel-raised);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+  }
+  .prose-dark pre {
+    background: var(--color-panel-raised);
+    border: 1px solid var(--color-border);
+    padding: 0.9em 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0 0 1em;
+  }
+  .prose-dark pre code {
+    background: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 543px) {
+  .battle-scene {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite-sheet {
+    animation: none;
+  }
+}

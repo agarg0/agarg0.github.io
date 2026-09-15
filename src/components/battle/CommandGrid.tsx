@@ -1,0 +1,77 @@
+"use client";
+
+import { useEffect, useRef, type KeyboardEvent } from "react";
+import { strings } from "@/content/strings";
+import type { Command } from "@/lib/battle-machine/types";
+
+const COMMANDS: Command[] = ["PROJECTS", "RESUME", "ABOUT", "CONTACT"];
+
+export function commandButtonId(command: Command) {
+  return `cmd-${command}`;
+}
+
+interface CommandGridProps {
+  onSelect: (command: Command) => void;
+  initialFocus: Command | null;
+  autoFocus: boolean;
+}
+
+export function CommandGrid({ onSelect, initialFocus, autoFocus }: CommandGridProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!autoFocus) return;
+    const target = initialFocus ?? COMMANDS[0];
+    gridRef.current
+      ?.querySelector<HTMLButtonElement>(`#${commandButtonId(target)}`)
+      ?.focus({ preventScroll: true });
+  }, [initialFocus, autoFocus]);
+
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    const buttons = Array.from(gridRef.current?.querySelectorAll<HTMLButtonElement>("button") ?? []);
+    const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    if (index === -1) return;
+    const cols = gridRef.current?.dataset.cols === "1" ? 1 : 2;
+    let next = index;
+    switch (e.key) {
+      case "ArrowRight":
+        next = Math.min(index + 1, buttons.length - 1);
+        break;
+      case "ArrowLeft":
+        next = Math.max(index - 1, 0);
+        break;
+      case "ArrowDown":
+        next = Math.min(index + cols, buttons.length - 1);
+        break;
+      case "ArrowUp":
+        next = Math.max(index - cols, 0);
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    buttons[next]?.focus();
+  }
+
+  return (
+    <div
+      ref={gridRef}
+      role="group"
+      aria-label="Navigation"
+      onKeyDown={onKeyDown}
+      className="grid h-full grid-cols-2 grid-rows-2 gap-x-[1cqw]"
+    >
+      {COMMANDS.map((command) => (
+        <button
+          key={command}
+          id={commandButtonId(command)}
+          type="button"
+          onClick={() => onSelect(command)}
+          className="pixel-button pixel-text"
+        >
+          {strings.commands[command]}
+        </button>
+      ))}
+    </div>
+  );
+}
